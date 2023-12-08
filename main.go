@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	"github.com/RNekoCloud/deep-dive-http/routes"
 )
@@ -21,6 +22,6 @@ func main() {
 
 	if err != nil {
 		fmt.Println("Failed to listening server:", err)
-		return
+		os.Exit(1)
 	}
 }
