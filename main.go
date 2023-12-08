@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 )
@@ -12,13 +13,25 @@ type City struct {
 
 var store interface{}
 
-func getCity(w http.ResponseWriter, req *http.Request) {
+func rootHandler(w http.ResponseWriter, req *http.Request) {
+	res := map[string]interface{}{
+		"message": "City API Version 1.0.0",
+		"status":  "success",
+	}
+
+	json, _ := json.Marshal(&res)
+
+	w.Write(json)
 
 }
 
 func main() {
-	http.HandleFunc("/", getCity)
+	http.HandleFunc("/", rootHandler)
+
 	err := http.ListenAndServe(":3000", nil)
+
+	// Loggin server listener
+	fmt.Println("Server is running on http://localhost:3000/")
 
 	if err != nil {
 		fmt.Println("Failed to listening server:", err)
