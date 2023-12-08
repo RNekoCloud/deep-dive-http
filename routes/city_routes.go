@@ -8,4 +8,5 @@ import (
 
 func CityRoutes() {
 	http.HandleFunc("/", handler.Root)
+	http.HandleFunc("/cities", handler.AddCity)
 }
