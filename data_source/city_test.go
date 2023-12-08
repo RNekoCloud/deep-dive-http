@@ -16,5 +16,8 @@ func TestModify(t *testing.T) {
 	id := helper.UUIDGen()
 
 	Store[id] = data1
-	fmt.Println(Store)
+
+	for _, val := range Store {
+		fmt.Println("City:", val.Name)
+	}
 }
