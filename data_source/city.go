@@ -5,4 +5,11 @@ type City struct {
 	Province string `json:"province,omitempty"`
 }
 
-var Store map[string]City
+var baseData = City{
+	Name:     "Sukoharjo",
+	Province: "Jawa Tengah",
+}
+
+var Store map[string]City = map[string]City{
+	"01": baseData,
+}
