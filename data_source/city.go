@@ -11,5 +11,5 @@ var baseData = City{
 }
 
 var Store map[string]City = map[string]City{
-	"01": baseData,
+	"553f3b9d-1189-4e22-80af-1f0d0d946a2f": baseData,
 }
