@@ -25,6 +25,10 @@ func Root(w http.ResponseWriter, req *http.Request) {
 }
 
 func AddCity(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		return
+	}
+
 	var data datasource.City
 
 	body, err := io.ReadAll(req.Body)
@@ -45,6 +49,7 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 	datasource.Store[id] = data
 
 	res := map[string]interface{}{
+		"status":  "success",
 		"message": "Successfully add new data",
 		"data":    data,
 	}
@@ -54,4 +59,40 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(b)
 
+}
+
+func GetAllCities(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "GET" {
+		return
+	}
+
+	var allCities []datasource.City
+
+	for _, val := range datasource.Store {
+		allCities = append(allCities, val)
+	}
+
+	res := map[string]interface{}{
+		"status": "success",
+		"data":   allCities,
+	}
+
+	b, _ := json.Marshal(&res)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusAccepted)
+	w.Write(b)
+}
+
+func CitiesHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Method == "GET" {
+		GetAllCities(w, req)
+		return
+	} else if req.Method == "POST" {
+		AddCity(w, req)
+		return
+	}
+
+	w.WriteHeader(http.StatusMethodNotAllowed)
+	w.Write([]byte("Method is not allowed"))
 }
