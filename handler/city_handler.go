@@ -42,7 +42,7 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 
 	res := map[string]interface{}{
 		"message": "Successfully add new data",
-		"data":    body,
+		"data":    data,
 	}
 
 	b, _ := json.Marshal(res)
