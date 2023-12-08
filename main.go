@@ -7,14 +7,7 @@ import (
 	"github.com/RNekoCloud/deep-dive-http/routes"
 )
 
-type City struct {
-	Name     string `json:"name,omitempty"`
-	Province string `json:"province,omitempty"`
-}
-
 type Address = string
-
-var store interface{}
 
 func main() {
 	var addr Address = ":3000"
