@@ -65,6 +65,9 @@ func CitiesHandler(w http.ResponseWriter, req *http.Request) {
 		GetAllCities(w, req)
 		return
 	}
+
+	w.WriteHeader(http.StatusMethodNotAllowed)
+	w.Write([]byte("Method is not allowed"))
 }
 
 func GetAllCities(w http.ResponseWriter, req *http.Request) {
