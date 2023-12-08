@@ -1,6 +1,7 @@
 package datasource
 
 import (
+	"encoding/json"
 	"fmt"
 	"testing"
 
@@ -20,4 +21,21 @@ func TestModify(t *testing.T) {
 	for _, val := range Store {
 		fmt.Println("City:", val.Name)
 	}
+}
+
+func TestJSONMap(t *testing.T) {
+	b, err := json.Marshal(Store)
+
+	if err != nil {
+		t.Error(err)
+	}
+
+	data := []City{}
+
+	for _, val := range Store {
+		data = append(data, val)
+	}
+
+	fmt.Println(string(b))
+	fmt.Println("All:", data)
 }
