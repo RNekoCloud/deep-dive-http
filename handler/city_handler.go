@@ -7,6 +7,7 @@ import (
 	"net/http"
 
 	datasource "github.com/RNekoCloud/deep-dive-http/data_source"
+	"github.com/RNekoCloud/deep-dive-http/helper"
 )
 
 func Root(w http.ResponseWriter, req *http.Request) {
@@ -39,6 +40,9 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 		fmt.Println("Failed to parsing JSON:", err)
 		return
 	}
+
+	id := helper.UUIDGen()
+	datasource.Store[id] = data
 
 	res := map[string]interface{}{
 		"message": "Successfully add new data",
