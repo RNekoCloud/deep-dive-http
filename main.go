@@ -1,9 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
+
+	"github.com/RNekoCloud/deep-dive-http/routes"
 )
 
 type City struct {
@@ -11,30 +12,19 @@ type City struct {
 	Province string `json:"province,omitempty"`
 }
 
+type Address = string
+
 var store interface{}
 
-func rootHandler(w http.ResponseWriter, req *http.Request) {
-	res := map[string]interface{}{
-		"message": "City API Version 1.0.0",
-		"status":  "success",
-	}
-
-	json, _ := json.Marshal(&res)
-
-	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusAccepted)
-	w.Write(json)
-
-}
-
 func main() {
+	var addr Address = ":3000"
 	// Loggin server listener
 	fmt.Println("Server is running on http://localhost:3000/")
 
 	// Route
-	http.HandleFunc("/", rootHandler)
+	routes.CityRoutes()
 
-	err := http.ListenAndServe(":3000", nil)
+	err := http.ListenAndServe(addr, nil)
 
 	if err != nil {
 		fmt.Println("Failed to listening server:", err)
