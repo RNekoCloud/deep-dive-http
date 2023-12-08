@@ -21,6 +21,8 @@ func rootHandler(w http.ResponseWriter, req *http.Request) {
 
 	json, _ := json.Marshal(&res)
 
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusAccepted)
 	w.Write(json)
 
 }
