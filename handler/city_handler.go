@@ -45,6 +45,7 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 	datasource.Store[id] = data
 
 	res := map[string]interface{}{
+		"status":  "success",
 		"message": "Successfully add new data",
 		"data":    data,
 	}
@@ -54,4 +55,23 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(b)
 
+}
+
+func getAllCities(w http.ResponseWriter, req *http.Request) {
+	var allCities []datasource.City
+
+	for _, val := range datasource.Store {
+		allCities = append(allCities, val)
+	}
+
+	res := map[string]interface{}{
+		"status": "success",
+		"data":   allCities,
+	}
+
+	b, _ := json.Marshal(&res)
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusAccepted)
+	w.Write(b)
 }
