@@ -57,7 +57,17 @@ func AddCity(w http.ResponseWriter, req *http.Request) {
 
 }
 
-func getAllCities(w http.ResponseWriter, req *http.Request) {
+func CitiesHandler(w http.ResponseWriter, req *http.Request) {
+	if req.Method == "GET" {
+		AddCity(w, req)
+		return
+	} else if req.Method == "POST" {
+		GetAllCities(w, req)
+		return
+	}
+}
+
+func GetAllCities(w http.ResponseWriter, req *http.Request) {
 	var allCities []datasource.City
 
 	for _, val := range datasource.Store {
