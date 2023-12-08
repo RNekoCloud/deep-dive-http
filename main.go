@@ -26,12 +26,13 @@ func rootHandler(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
+	// Loggin server listener
+	fmt.Println("Server is running on http://localhost:3000/")
+
+	// Route
 	http.HandleFunc("/", rootHandler)
 
 	err := http.ListenAndServe(":3000", nil)
-
-	// Loggin server listener
-	fmt.Println("Server is running on http://localhost:3000/")
 
 	if err != nil {
 		fmt.Println("Failed to listening server:", err)
